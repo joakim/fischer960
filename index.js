@@ -10,7 +10,7 @@ const UNICODE = {
 }
 
 /**
- * Converts an arrangement from `Array` to `String`.
+ * Converts an arrangement of pieces from `Array` to `String`.
  *
  * @param {Array} arrangement A starting position's arrangement of pieces
  * @returns {String} A string representation of the arrangement of pieces
@@ -20,7 +20,7 @@ function toString(arrangement) {
 }
 
 /**
- * Converts an arrangement from `String` to `Array`.
+ * Converts an arrangement of pieces from `String` to `Array`.
  *
  * @param {String} arrangement A starting position's arrangement of pieces
  * @returns {Array} An array representation of the arrangement of pieces
@@ -30,7 +30,7 @@ function toArray(arrangement) {
 }
 
 /**
- * Mirrors the arrangement of a starting position (its "twin").
+ * Mirrors a starting position's arrangement of pieces (its "twin").
  *
  * @param {Array|String} arrangement A starting position's arrangement of pieces
  * @returns {Array} The mirrored arrangement of pieces
@@ -41,7 +41,7 @@ function toMirror(arrangement) {
 }
 
 /**
- * Returns the arrangement of pieces in Unicode symbols.
+ * Converts an arrangement of pieces to Unicode symbols.
  *
  * @param {Array|String} arrangement A starting position's arrangement of pieces
  * @returns {Array} The same arrangement of pieces, but in Unicode symbols

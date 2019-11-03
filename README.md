@@ -4,7 +4,7 @@ A Fischer Random Chess / Chess960 library in JavaScript.
 
 The library provides two sets of functions, one algorithmic and the other based on a lookup table of all 960 positions. The lookup table is about 14KB, so you'd normally want to use the algorithmic functions. A set of helper functions for tweaking the results are also provided.
 
-Arrangement of pieces are represented as an array. But all functions that take an `arrangement` argument also accept a string representation (eg. `BBQNNRKR`), and there's a helper function for converting the returned array into a string (`toString()`).
+Arrangement of pieces are represented as an array, but all functions that take an `arrangement` argument also accept a string representation (eg. `"BBQNNRKR"`). There's also a helper function for converting the returned array into a string (`toString()`), or why not Unicode symbols (`toUnicode()`)?
 
 ## Algorithmic functions
 
@@ -38,16 +38,16 @@ Given an ID, finds the starting position's arrangement of pieces.
 
 ### `toString(arrangement)`
 
-Converts an arrangement from `Array` to `String`.
+Converts an arrangement of pieces from `Array` to `String`.
 
 ### `toArray(arrangement)`
 
-Converts an arrangement from `String` to `Array`.
+Converts an arrangement of pieces from `String` to `Array`.
 
 ### `toMirror(arrangement)`
 
-Mirrors the arrangement of a starting position (its "twin").
+Mirrors a starting position's arrangement of pieces (its "twin").
 
 ### `toUnicode(arrangement)`
 
-Returns the arrangement of pieces in Unicode symbols.
+Converts an arrangement of pieces to Unicode symbols.
