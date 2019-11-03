@@ -1,5 +1,7 @@
 const random = require('./random')
 
+const KRN = ['K', 'R', 'N']
+const KRNQ = ['K', 'R', 'N', 'Q']
 const KRN_TABLE = [
   'NNRKR',
   'NRNKR',
@@ -48,13 +50,11 @@ function encode(arrangement) {
   let id = 0
 
   // Add value for the sequence of K, R, N
-  const krn = ['K', 'R', 'N']
-  const sequence = arrangement.filter(piece => krn.includes(piece)).join('')
+  const sequence = arrangement.filter(piece => KRN.includes(piece)).join('')
   id += KRN_TABLE.indexOf(sequence) * 96
 
   // Add value for the position of the queen within K, R, N, Q
-  krn.push('Q')
-  id += arrangement.filter(piece => krn.includes(piece)).indexOf('Q') * 16
+  id += arrangement.filter(piece => KRNQ.includes(piece)).indexOf('Q') * 16
 
   // Add value for the combined positions of the bishops
   const firstB = arrangement.indexOf('B')
