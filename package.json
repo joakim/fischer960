@@ -1,0 +1,15 @@
+{
+  "name": "fischer960",
+  "description": "Fischer Random Chess / Chess960 library",
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "index.js",
+  "author": "Joakim Stai <joakimstai@gmail.com>",
+  "repository": "https://github.com/joakim/fischer960",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^6.6.0",
+    "prettier": "joakim/prettier"
+  },
+  "private": false
+}
