@@ -1,3 +1,14 @@
+/**
+ * @file An alternative version of the library using a 14KB lookup table
+ * instead of algorithms. This was the original library and is included here
+ * mainly for reference.
+ */
+
+/**
+ * Map of Unicode symbols for pieces in both white and black colors.
+ *
+ * @const {Object}
+ */
 const UNICODE = {
   K: ['♔', '♚'],
   Q: ['♕', '♛'],
@@ -9,8 +20,8 @@ const UNICODE = {
 /**
  * Converts an arrangement of pieces from `Array` to `String`.
  *
- * @param {Array} arrangement A starting position's arrangement of pieces
- * @returns {String} The same arrangement of pieces as a string
+ * @param {string[]} arrangement A starting position's arrangement of pieces
+ * @returns {string} The same arrangement of pieces as a string
  */
 export function toString(arrangement) {
   return Array.isArray(arrangement) ? arrangement.join('') : String(arrangement)
@@ -19,8 +30,8 @@ export function toString(arrangement) {
 /**
  * Converts an arrangement of pieces from `String` to `Array`.
  *
- * @param {String} arrangement A starting position's arrangement of pieces
- * @returns {Array} The same arrangement of pieces as an array
+ * @param {string} arrangement A starting position's arrangement of pieces
+ * @returns {string[]} The same arrangement of pieces as an array
  */
 export function toArray(arrangement) {
   return Array.from(arrangement)
@@ -29,8 +40,8 @@ export function toArray(arrangement) {
 /**
  * Converts an arrangement of pieces to lowercase notation.
  *
- * @param {Array} arrangement A starting position's arrangement of pieces
- * @returns {Array|String} The same arrangement in lowercase
+ * @param {string[]|string} arrangement A starting position's arrangement of pieces
+ * @returns {string[]|string} The same arrangement in lowercase
  */
 export function toLowerCase(arrangement) {
   const type = typeof arrangement
@@ -41,8 +52,8 @@ export function toLowerCase(arrangement) {
 /**
  * Converts an arrangement of pieces to uppercase notation.
  *
- * @param {Array} arrangement A starting position's arrangement of pieces
- * @returns {Array|String} The same arrangement in uppercase
+ * @param {string[]|string} arrangement A starting position's arrangement of pieces
+ * @returns {string[]|string} The same arrangement in uppercase
  */
 export function toUpperCase(arrangement) {
   const type = typeof arrangement
@@ -53,8 +64,8 @@ export function toUpperCase(arrangement) {
 /**
  * Mirrors a starting position's arrangement of pieces (its "twin").
  *
- * @param {Array|String} arrangement A starting position's arrangement of pieces
- * @returns {Array|String} The mirrored arrangement of pieces
+ * @param {string[]|string} arrangement A starting position's arrangement of pieces
+ * @returns {string[]|string} The mirrored arrangement of pieces
  */
 export function toMirror(arrangement) {
   const type = typeof arrangement
@@ -65,9 +76,9 @@ export function toMirror(arrangement) {
 /**
  * Converts an arrangement of pieces to Unicode symbols.
  *
- * @param {Array|String} arrangement A starting position's arrangement of pieces
- * @param {Boolean} color The color of the pieces (0 = white, 1 = black)
- * @returns {Array|String} The same arrangement of pieces in Unicode symbols
+ * @param {string[]|string} arrangement A starting position's arrangement of pieces
+ * @param {boolean} [color=0] The color of the pieces (0 = white, 1 = black)
+ * @returns {string[]|string} The same arrangement of pieces in Unicode symbols
  */
 export function toUnicode(arrangement, color = 0) {
   const type = typeof arrangement

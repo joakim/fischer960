@@ -1,3 +1,9 @@
+/**
+ * @file An alternative version of the fischer960 library that uses a 14KB
+ * lookup table instead of algorithms. This was the original library and is
+ * kept mainly for reference.
+ */
+
 import { random } from './random.js'
 
 export {
@@ -10,41 +16,40 @@ export {
 } from './helpers.js'
 
 /**
- * Fetches a random starting position.
+ * Given an ID, returns the starting position's arrangement of pieces.
  *
- * Equivalent algorithmic function: `generate()`
+ * @see {@link https://en.wikipedia.org/wiki/Fischer_Random_Chess_numbering_scheme}
  *
- * @returns {Object} An object of a starting position, with its `id` and
- *                   `arrangement` of pieces
+ * @param {number} id An ID of a starting position
+ * @returns {string[]} The starting position's arrangement of pieces
  */
 export function decode(id) {
-  return Array.from(positions[parseInt(id)])
-  }
-
-/**
- * Given an arrangement of pieces, finds the starting position's ID.
- *
- * Equivalent algorithmic function: `encode()`
- *
- * @param {Array|String} arrangement A starting position's arrangement of pieces
- * @returns {Number} The ID of the starting position
- */
-export function encode(arrangement) {
-  if (Array.isArray(arrangement)) arrangement = arrangement.join('')
-  return positions.indexOf(arrangement)
+  return Array.from(POSITIONS[parseInt(id)])
 }
 
 /**
- * Given an ID, finds the starting position's arrangement of pieces.
+ * Given an arrangement of pieces, returns the starting position's ID.
  *
- * Equivalent algorithmic function: `decode()`
+ * @see {@link https://chess960frc.blogspot.com/2010/11/calculate-sp-numbers-in-your-head.html}
  *
- * @param {Number|String} id An ID of a starting position
- * @returns {Array} The starting position's arrangement of pieces
+ * @param {string[]|string} arrangement A starting position's arrangement of pieces
+ * @returns {number} The starting position's ID
+ */
+export function encode(arrangement) {
+  if (Array.isArray(arrangement)) arrangement = arrangement.join('')
+  return POSITIONS.indexOf(arrangement)
+}
+
+/**
+ * Returns a random starting position for Fischer Random Chess / Chess960.
+ *
+ * @see {@link https://en.wikipedia.org/wiki/Fischer_Random_Chess_starting_position}
+ *
+ * @returns {string[]} The starting position's arrangement of pieces
  */
 export function generate() {
   const id = Math.floor(random() * 960)
-  return Array.from(positions[id])
+  return Array.from(POSITIONS[id])
 }
 
 /**
@@ -52,9 +57,11 @@ export function generate() {
  * Chess960. The array's indexes correspond to each starting position's ID
  * (from 0 to 959).
  *
- * Source: https://www.mark-weeks.com/cfaa/chess960/c960strt.htm
+ * @see {@link https://www.mark-weeks.com/cfaa/chess960/c960strt.htm|Source}
+ *
+ * @const {string[]}
  */
-export const positions = [
+export const POSITIONS = [
   'BBQNNRKR',
   'BQNBNRKR',
   'BQNNRBKR',

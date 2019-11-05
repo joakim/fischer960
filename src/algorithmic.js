@@ -1,5 +1,14 @@
+/**
+ * @file Algorithmic functions for producing starting positions or their IDs.
+ */
+
 import { random } from './random.js'
 
+/**
+ * Lookup table of KRN sequences, used by `encode()`.
+ *
+ * @const {string[]}
+ */
 const KRN_TABLE = [
   'NNRKR',
   'NRNKR',
@@ -13,15 +22,24 @@ const KRN_TABLE = [
   'RKRNN',
 ]
 
+/**
+ * Lookup table of bishop placements, used by `encode()`.
+ *
+ * Built by concatenating the indexes of the two bishops (not by addition).
+ *
+ * @todo Find a more elegant solution
+ * @const {number[]}
+ */
+// prettier-ignore
 const BISHOP_TABLE = [1, 3, 5, 7, 12, 23, 25, 27, 14, 34, 45, 47, 16, 36, 56, 67]
 
 /**
  * Given an arrangement of pieces, returns the starting position's ID.
  *
- * https://chess960frc.blogspot.com/2010/11/calculate-sp-numbers-in-your-head.html
+ * @see {@link https://chess960frc.blogspot.com/2010/11/calculate-sp-numbers-in-your-head.html}
  *
- * @param {Array|String} arrangement A starting position's arrangement of pieces
- * @returns {Number} The starting position's ID
+ * @param {string[]|string} arrangement A starting position's arrangement of pieces
+ * @returns {number} The starting position's ID
  */
 export function encode(arrangement) {
   if (!Array.isArray(arrangement)) arrangement = Array.from(arrangement)
@@ -46,10 +64,10 @@ export function encode(arrangement) {
 /**
  * Given an ID, returns the starting position's arrangement of pieces.
  *
- * https://en.wikipedia.org/wiki/Fischer_Random_Chess_numbering_scheme
+ * @see {@link https://en.wikipedia.org/wiki/Fischer_Random_Chess_numbering_scheme}
  *
- * @param {Number} id An ID of a starting position
- * @returns {Array} The starting position's arrangement of pieces
+ * @param {number} id An ID of a starting position
+ * @returns {string[]} The starting position's arrangement of pieces
  */
 export function decode(id) {
   const arrangement = [0, 1, 2, 3, 4, 5, 6, 7]
@@ -85,11 +103,11 @@ export function decode(id) {
 }
 
 /**
- * Generates a random starting position for Fischer Random Chess / Chess960.
+ * Generates a random starting position from scratch.
  *
- * https://en.wikipedia.org/wiki/Fischer_Random_Chess_starting_position
+ * @see {@link https://en.wikipedia.org/wiki/Fischer_Random_Chess_starting_position}
  *
- * @returns {Array} The starting position's arrangement of pieces
+ * @returns {string[]} The starting position's arrangement of pieces
  */
 export function generate() {
   const arrangement = new Array(8)
