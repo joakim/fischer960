@@ -1,13 +1,6 @@
 import { random } from './random.js'
 
-// Array of KRN pieces, used by encode() to filter pieces
-const KRN = ['K', 'R', 'N']
-
-// Array of KRNQ pieces, used by encode() to filter pieces
-const KRNQ = ['K', 'R', 'N', 'Q']
-
-// Lookup table of KRN sequences, used by encode()
-const KRN_SEQ = [
+const KRN_TABLE = [
   'NNRKR',
   'NRNKR',
   'NRKNR',
@@ -20,10 +13,7 @@ const KRN_SEQ = [
   'RKRNN',
 ]
 
-// Lookup table of bishop placements used by encode(), built by concatenating
-// the indexes of the two bishops (not adding)
-// TODO: It works, but find a more elegant solution
-const BISHOP_POS = [1, 3, 5, 7, 12, 23, 25, 27, 14, 34, 45, 47, 16, 36, 56, 67]
+const BISHOP_TABLE = [1, 3, 5, 7, 12, 23, 25, 27, 14, 34, 45, 47, 16, 36, 56, 67]
 
 /**
  * Given an arrangement of pieces, returns the starting position's ID.
@@ -39,16 +29,16 @@ export function encode(arrangement) {
   let id = 0
 
   // Add value for the sequence of K, R, N
-  const sequence = arrangement.filter(piece => KRN.includes(piece)).join('')
-  id += KRN_SEQ.indexOf(sequence) * 96
+  const sequence = arrangement.filter(piece => 'KRN'.includes(piece)).join('')
+  id += KRN_TABLE.indexOf(sequence) * 96
 
   // Add value for the position of the queen within K, R, N, Q
-  id += arrangement.filter(piece => KRNQ.includes(piece)).indexOf('Q') * 16
+  id += arrangement.filter(piece => 'KRNQ'.includes(piece)).indexOf('Q') * 16
 
   // Add value for the combined positions of the bishops
   const firstB = arrangement.indexOf('B')
   const secondB = arrangement.lastIndexOf('B')
-  id += BISHOP_POS.indexOf(parseInt('' + firstB + secondB))
+  id += BISHOP_TABLE.indexOf(parseInt('' + firstB + secondB))
 
   return id
 }
