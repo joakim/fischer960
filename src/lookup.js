@@ -1,5 +1,14 @@
 import { random } from './random.js'
 
+export {
+  toString,
+  toArray,
+  toLowerCase,
+  toUpperCase,
+  toMirror,
+  toUnicode,
+} from './helpers.js'
+
 /**
  * Fetches a random starting position.
  *
@@ -8,14 +17,9 @@ import { random } from './random.js'
  * @returns {Object} An object of a starting position, with its `id` and
  *                   `arrangement` of pieces
  */
-export function getRandom() {
-  const id = Math.floor(random() * 960)
-
-  return {
-    id,
-    arrangement: Array.from(positions[id]),
+export function decode(id) {
+  return Array.from(positions[parseInt(id)])
   }
-}
 
 /**
  * Given an arrangement of pieces, finds the starting position's ID.
@@ -25,7 +29,7 @@ export function getRandom() {
  * @param {Array|String} arrangement A starting position's arrangement of pieces
  * @returns {Number} The ID of the starting position
  */
-export function getID(arrangement) {
+export function encode(arrangement) {
   if (Array.isArray(arrangement)) arrangement = arrangement.join('')
   return positions.indexOf(arrangement)
 }
@@ -38,11 +42,8 @@ export function getID(arrangement) {
  * @param {Number|String} id An ID of a starting position
  * @returns {Array} The starting position's arrangement of pieces
  */
-export function getArrangement(id) {
-  id = parseInt(id)
-  if (!(id >= 0 && id <= 960)) return null
-  if (id === 960) id = 0
-
+export function generate() {
+  const id = Math.floor(random() * 960)
   return Array.from(positions[id])
 }
 

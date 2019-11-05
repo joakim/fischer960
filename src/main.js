@@ -1,10 +1,9 @@
-export { generate, encode, decode } from './algorithmic.js'
-export { getRandom, getArrangement, getID, positions } from './lookup.js'
+export { decode, encode, generate } from './algorithmic.js'
 export {
-  toLowerCase,
-  toUpperCase,
   toString,
   toArray,
+  toLowerCase,
+  toUpperCase,
   toMirror,
   toUnicode,
 } from './helpers.js'

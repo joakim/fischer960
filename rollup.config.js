@@ -4,15 +4,10 @@ import commonjs from 'rollup-plugin-commonjs'
 import buble from '@rollup/plugin-buble'
 import pkg from './package.json'
 
-const pluginsUMD = [
-  replace({ 'process.browser': true }),
-  resolve(),
-  commonjs(),
-  buble({ exclude: 'node_modules/**' }),
-]
+const plugins = [buble({ exclude: 'node_modules/**' })]
 
 export default [
-  // Complete browser-friendly UMD build
+  // Browser-friendly build in UMD format
   {
     input: 'src/main.js',
     output: {
@@ -20,28 +15,20 @@ export default [
       file: pkg.browser,
       format: 'umd',
     },
-    plugins: pluginsUMD,
+    plugins: [
+      replace({ 'process.browser': true }),
+      resolve(),
+      commonjs(),
+      ...plugins,
+    ],
   },
-  // Lightweight browser-friendly UMD build without lookup based functions
-  {
-    input: 'src/light.js',
-    output: {
-      name: 'Fischer960',
-      file: pkg.browser.replace('.umd.js', '.umd.light.js'),
-      format: 'umd',
-    },
-    plugins: pluginsUMD,
-  },
-  // Server-friendly CommonJS (for Node) and ES module (for bundlers) build
+  // Server-friendly builds in CommonJS (for Node) and ES module (for bundlers)
   {
     input: 'src/main.js',
     output: [
       { file: pkg.main, format: 'cjs' },
       { file: pkg.module, format: 'es' },
     ],
-    plugins: [
-      replace({ 'process.browser': false }),
-      buble({ exclude: 'node_modules/**' }),
-    ],
+    plugins: [replace({ 'process.browser': false }), ...plugins],
   },
 ]
