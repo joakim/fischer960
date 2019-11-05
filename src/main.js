@@ -10,18 +10,8 @@ import { validArrangement, validID } from './helpers.js'
  *
  * @const {string[]}
  */
-const KRN_TABLE = [
-  'NNRKR',
-  'NRNKR',
-  'NRKNR',
-  'NRKRN',
-  'RNNKR',
-  'RNKNR',
-  'RNKRN',
-  'RKNNR',
-  'RKNRN',
-  'RKRNN',
-]
+// prettier-ignore
+const KRN_TABLE = ['NNRKR', 'NRNKR', 'NRKNR', 'NRKRN', 'RNNKR', 'RNKNR', 'RNKRN', 'RKNNR', 'RKNRN', 'RKRNN']
 
 /**
  * Lookup table of bishop placements, used by `encode()`.
