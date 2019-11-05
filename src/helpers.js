@@ -109,31 +109,37 @@ export function toUnicode(arrangement, color = 0) {
 export function validArrangement(arrangement) {
   if (!Array.isArray(arrangement) && typeof arrangement !== 'string')
     return false
+
   if (arrangement.length !== 8) return false
 
-  if (Array.isArray(arrangement)) arrangement = arrangement.join('')
+  if (Array.isArray(arrangement))
+    arrangement = arrangement.join('').toUpperCase()
 
   const count = piece =>
-    (arrangement.match(new RegExp(piece, 'gi')) || []).length
+    (arrangement.match(new RegExp(piece, 'g')) || []).length
 
   // Check the presence of all pieces
-  let pieces =
-    count('K') === 1 &&
-    count('Q') === 1 &&
-    count('R') === 2 &&
-    count('B') === 2 &&
-    count('N') === 2
+  if (
+    count('K') !== 1 ||
+    count('Q') !== 1 ||
+    count('R') !== 2 ||
+    count('B') !== 2 ||
+    count('N') !== 2
+  ) {
+    return false
+  }
 
-  // Check the positions of bishops
-  let b1 = arrangement.indexOf('B')
-  let b2 = arrangement.lastIndexOf('B')
-  let bishops = (b2 - b1) % 2
+  // Check the positions of bishops (on different colored squares)
+  const b1 = arrangement.indexOf('B')
+  const b2 = arrangement.lastIndexOf('B')
+  if (!((b2 - b1) % 2)) return false
 
-  // Check the positions of rooks
-  let k = arrangement.indexOf('K')
-  let rooks = arrangement[k - 1] === 'R' && arrangement[k + 1] === 'R'
+  // Check the positions of rooks (one on each side of the king)
+  const k = arrangement.indexOf('K')
+  const r1 = arrangement.indexOf('R')
+  if (r1 > k) return false
 
-  return pieces && bishops && rooks
+  return true
 }
 
 /**
