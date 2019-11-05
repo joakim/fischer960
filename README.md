@@ -15,7 +15,7 @@ let id = encode(sp)
 let sp518 = decode(518)
 ```
 
-# Install
+## Install
 
 With Yarn:
 
@@ -25,7 +25,7 @@ With NPM:
 
 `npm install --save fischer960`
 
-# Use
+## Use
 
 The library is available as CJS for Node, ESM for bundlers and UMD for legacy environments. A bundler (Webpack/Rollup/etc) is recommended for use in browsers.
 
@@ -45,9 +45,9 @@ A few things to be aware of:
 - `generate()` and `decode()` return the starting position as an array (use the `toString()` helper function to convert it to a string)
 - An `arrangement` argument accepts either an array (`['B', 'B', 'Q', 'N', 'N', 'R', 'K', 'R']`) or a string (`'BBQNNRKR'`) of pieces
 
-## Main functions
+### Main functions
 
-### `generate()`
+#### `generate()`
 
 Generates a random starting position, returning its arrangement of pieces.
 
@@ -65,7 +65,7 @@ let sp = generate() // -> eg. ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']
 let id = encode(sp) // -> eg. 518
 ```
 
-### `decode(id)`
+#### `decode(id)`
 
 Given an ID, returns the starting position's arrangement of pieces, or `false` if ID is invalid.
 
@@ -83,7 +83,7 @@ let id = Math.floor(Math.random() * 960) // -> 0-959
 let sp = decode(id) // -> eg. ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']
 ```
 
-### `encode(arrangement)`
+#### `encode(arrangement)`
 
 Given an arrangement of pieces, returns the starting position's ID, or `-1` if arrangement is invalid.
 
@@ -92,13 +92,13 @@ encode(['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']) // -> 518
 encode('RKRNNQBB') // -> 959
 ```
 
-## Helper functions
+### Helper functions
 
 A set of helper functions for manipulating arrangements are also provided.
 
 Except for `toString()` and `toArray()`, these return the same type that was provided (ie. if you pass a string you get a string, if you pass an array you get an array). Except for `toLowerCase()` and `toUpperCase()`, these also return the same case that was provided.
 
-### `toString(arrangement)`
+#### `toString(arrangement)`
 
 Converts an arrangement of pieces from `Array` to `String`.
 
@@ -107,7 +107,7 @@ toString(['B', 'B', 'Q', 'N', 'N', 'R', 'K', 'R']) // -> 'BBQNNRKR'
 toString(['b', 'b', 'q', 'n', 'n', 'r', 'k', 'r']) // -> 'bbqnnrkr'
 ```
 
-### `toArray(arrangement)`
+#### `toArray(arrangement)`
 
 Converts an arrangement of pieces from `String` to `Array`.
 
@@ -116,7 +116,7 @@ toArray('BBQNNRKR') // -> ['B', 'B', 'Q', 'N', 'N', 'R', 'K', 'R']
 toArray('bbqnnrkr') // -> ['b', 'b', 'q', 'n', 'n', 'r', 'k', 'r']
 ```
 
-### `toLowerCase(arrangement)`
+#### `toLowerCase(arrangement)`
 
 Converts an arrangement of pieces to lowercase notation.
 
@@ -125,7 +125,7 @@ toLowerCase(['B', 'B', 'Q', 'N', 'N', 'R', 'K', 'R']) // -> ['b', 'b', 'q', 'n',
 toLowerCase('BBQNNRKR') // -> 'bbqnnrkr'
 ```
 
-### `toUpperCase(arrangement)`
+#### `toUpperCase(arrangement)`
 
 Converts an arrangement of pieces to uppercase notation.
 
@@ -134,7 +134,7 @@ toUpperCase(['b', 'b', 'q', 'n', 'n', 'r', 'k', 'r']) // -> ['B', 'B', 'Q', 'N',
 toUpperCase('bbqnnrkr') // -> 'BBQNNRKR'
 ```
 
-### `toMirror(arrangement)`
+#### `toMirror(arrangement)`
 
 Mirrors a starting position's arrangement of pieces (returns its "twin").
 
@@ -143,7 +143,7 @@ toMirror(['B', 'B', 'Q', 'N', 'N', 'R', 'K', 'R']) // -> ['R', 'K', 'R', 'N', 'N
 toMirror('BBQNNRKR') // -> 'RKRNNQBB'
 ```
 
-### `toUnicode(arrangement, color)`
+#### `toUnicode(arrangement, color)`
 
 Converts an arrangement of pieces to Unicode symbols.
 
@@ -157,7 +157,7 @@ toUnicode('BBQNNRKR') // -> '♗♗♕♘♘♖♔♖'
 toUnicode('BBQNNRKR', true) // -> '♝♝♛♞♞♜♚♜'
 ```
 
-### `validArrangement(arrangement)`
+#### `validArrangement(arrangement)`
 
 Validates a starting position's arrangement of pieces.
 
@@ -166,7 +166,7 @@ validArrangement(['B', 'B', 'Q', 'N', 'N', 'R', 'K', 'R']) // -> true
 validArrangement('KQRBRBNN') // -> false (not a valid starting position)
 ```
 
-### `validID(id)`
+#### `validID(id)`
 
 Validates a starting position's ID.
 
