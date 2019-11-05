@@ -1,6 +1,6 @@
 {
   "name": "fischer960",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Fischer Random Chess / Chess960 library",
   "license": "MIT",
   "repository": "joakim/fischer960",
