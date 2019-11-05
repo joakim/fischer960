@@ -26,5 +26,5 @@ const MAX = 4294967295
  *     but not 1)
  */
 export function random() {
-  return getRandomValues(new Uint32Array(1))[0] / MAX + 0.0000007
+  return getRandomValues(new Uint32Array(1))[0] / (MAX + 0.0000007)
 }
