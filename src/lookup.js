@@ -1,4 +1,4 @@
-const { random } = require('./random')
+import { random } from './random.js'
 
 /**
  * Fetches a random starting position.
@@ -8,7 +8,7 @@ const { random } = require('./random')
  * @returns {Object} An object of a starting position, with its `id` and
  *                   `arrangement` of pieces
  */
-function getRandom() {
+export function getRandom() {
   const id = Math.floor(random() * 960)
 
   return {
@@ -25,7 +25,7 @@ function getRandom() {
  * @param {Array|String} arrangement A starting position's arrangement of pieces
  * @returns {Number} The ID of the starting position
  */
-function getID(arrangement) {
+export function getID(arrangement) {
   if (Array.isArray(arrangement)) arrangement = arrangement.join('')
   return positions.indexOf(arrangement)
 }
@@ -38,7 +38,7 @@ function getID(arrangement) {
  * @param {Number|String} id An ID of a starting position
  * @returns {Array} The starting position's arrangement of pieces
  */
-function getArrangement(id) {
+export function getArrangement(id) {
   id = parseInt(id)
   if (!(id >= 0 && id <= 960)) return null
   if (id === 960) id = 0
@@ -53,7 +53,7 @@ function getArrangement(id) {
  *
  * Source: https://www.mark-weeks.com/cfaa/chess960/c960strt.htm
  */
-const positions = [
+export const positions = [
   'BBQNNRKR',
   'BQNBNRKR',
   'BQNNRBKR',
@@ -1015,10 +1015,3 @@ const positions = [
   'RKRNNBBQ',
   'RKRNNQBB',
 ]
-
-module.exports = {
-  getRandom,
-  getID,
-  getArrangement,
-  positions,
-}

@@ -1,8 +1,13 @@
-const random = require('./random')
+import { random } from './random.js'
 
+// Array of KRN pieces, used by encode() to filter pieces
 const KRN = ['K', 'R', 'N']
+
+// Array of KRNQ pieces, used by encode() to filter pieces
 const KRNQ = ['K', 'R', 'N', 'Q']
-const KRN_TABLE = [
+
+// Lookup table of KRN sequences, used by encode()
+const KRN_SEQ = [
   'NNRKR',
   'NRNKR',
   'NRKNR',
@@ -15,26 +20,10 @@ const KRN_TABLE = [
   'RKRNN',
 ]
 
-// Built by concatenating (not adding) the indexes of the two bishops
-// TODO: Find a more elegant solution
-const BISHOP_TABLE = [
-  1,
-  3,
-  5,
-  7,
-  12,
-  23,
-  25,
-  27,
-  14,
-  34,
-  45,
-  47,
-  16,
-  36,
-  56,
-  67,
-]
+// Lookup table of bishop placements used by encode(), built by concatenating
+// the indexes of the two bishops (not adding)
+// TODO: It works, but find a more elegant solution
+const BISHOP_POS = [1, 3, 5, 7, 12, 23, 25, 27, 14, 34, 45, 47, 16, 36, 56, 67]
 
 /**
  * Given an arrangement of pieces, returns the starting position's ID.
@@ -44,14 +33,14 @@ const BISHOP_TABLE = [
  * @param {Array|String} arrangement A starting position's arrangement of pieces
  * @returns {Number} The starting position's ID
  */
-function encode(arrangement) {
+export function encode(arrangement) {
   if (!Array.isArray(arrangement)) arrangement = Array.from(arrangement)
 
   let id = 0
 
   // Add value for the sequence of K, R, N
   const sequence = arrangement.filter(piece => KRN.includes(piece)).join('')
-  id += KRN_TABLE.indexOf(sequence) * 96
+  id += KRN_SEQ.indexOf(sequence) * 96
 
   // Add value for the position of the queen within K, R, N, Q
   id += arrangement.filter(piece => KRNQ.includes(piece)).indexOf('Q') * 16
@@ -59,7 +48,7 @@ function encode(arrangement) {
   // Add value for the combined positions of the bishops
   const firstB = arrangement.indexOf('B')
   const secondB = arrangement.lastIndexOf('B')
-  id += BISHOP_TABLE.indexOf(parseInt('' + firstB + secondB))
+  id += BISHOP_POS.indexOf(parseInt('' + firstB + secondB))
 
   return id
 }
@@ -72,7 +61,7 @@ function encode(arrangement) {
  * @param {Number} id An ID of a starting position
  * @returns {Array} The starting position's arrangement of pieces
  */
-function decode(id) {
+export function decode(id) {
   const arrangement = [0, 1, 2, 3, 4, 5, 6, 7]
 
   // Places a piece on the nth free square from the left
@@ -112,7 +101,7 @@ function decode(id) {
  *
  * @returns {Array} The starting position's arrangement of pieces
  */
-function generate() {
+export function generate() {
   const arrangement = new Array(8)
 
   // Places a piece on a square in the arrangement
@@ -159,5 +148,3 @@ function generate() {
 
   return arrangement
 }
-
-module.exports = { generate, encode, decode }

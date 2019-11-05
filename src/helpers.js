@@ -1,12 +1,9 @@
-const { generate, encode, decode } = require('./algorithmic')
-const { getRandom, getArrangement, getID, positions } = require('./lookup')
-
 const UNICODE = {
-  K: '♔',
-  Q: '♕',
-  R: '♖',
-  B: '♗',
-  N: '♘',
+  K: ['♔', '♚'],
+  Q: ['♕', '♛'],
+  R: ['♖', '♜'],
+  B: ['♗', '♝'],
+  N: ['♘', '♞'],
 }
 
 /**
@@ -15,7 +12,7 @@ const UNICODE = {
  * @param {Array} arrangement A starting position's arrangement of pieces
  * @returns {String} A string representation of the arrangement of pieces
  */
-function toString(arrangement) {
+export function toString(arrangement) {
   return Array.isArray(arrangement) ? arrangement.join('') : String(arrangement)
 }
 
@@ -25,7 +22,7 @@ function toString(arrangement) {
  * @param {String} arrangement A starting position's arrangement of pieces
  * @returns {Array} An array representation of the arrangement of pieces
  */
-function toArray(arrangement) {
+export function toArray(arrangement) {
   return Array.from(arrangement)
 }
 
@@ -35,9 +32,9 @@ function toArray(arrangement) {
  * @param {Array|String} arrangement A starting position's arrangement of pieces
  * @returns {Array} The mirrored arrangement of pieces
  */
-function toMirror(arrangement) {
+export function toMirror(arrangement) {
   if (!Array.isArray(arrangement)) arrangement = toArray(arrangement)
-  return arrangement.reverse()
+  return arrangement.slice().reverse()
 }
 
 /**
@@ -46,21 +43,7 @@ function toMirror(arrangement) {
  * @param {Array|String} arrangement A starting position's arrangement of pieces
  * @returns {Array} The same arrangement of pieces, but in Unicode symbols
  */
-function toUnicode(arrangement) {
+export function toUnicode(arrangement, color = 0) {
   if (!Array.isArray(arrangement)) arrangement = toArray(arrangement)
-  return arrangement.map(piece => UNICODE[piece])
-}
-
-module.exports = {
-  generate,
-  encode,
-  decode,
-  toString,
-  toArray,
-  toMirror,
-  toUnicode,
-  getRandom,
-  getArrangement,
-  getID,
-  positions,
+  return arrangement.map(piece => UNICODE[piece][color ? 1 : 0])
 }
