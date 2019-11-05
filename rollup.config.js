@@ -22,6 +22,16 @@ export default [
     },
     plugins: pluginsUMD,
   },
+  // Lightweight browser-friendly UMD build without lookup based functions
+  {
+    input: 'src/light.js',
+    output: {
+      name: 'Fischer960',
+      file: pkg.browser.replace('.umd.js', '.umd.light.js'),
+      format: 'umd',
+    },
+    plugins: pluginsUMD,
+  },
   // Server-friendly CommonJS (for Node) and ES module (for bundlers) build
   {
     input: 'src/main.js',
