@@ -3,6 +3,7 @@
  */
 
 import { random } from './random.js'
+import { validArrangement, validID } from './helpers.js'
 
 /**
  * Lookup table of KRN sequences, used by `encode()`.
@@ -38,11 +39,12 @@ const BISHOP_TABLE = [1, 3, 5, 7, 12, 23, 25, 27, 14, 34, 45, 47, 16, 36, 56, 67
  *
  * @see {@link https://chess960frc.blogspot.com/2010/11/calculate-sp-numbers-in-your-head.html}
  *
- * @param {string[]|string} arrangement A starting position's arrangement of pieces
- * @returns {number} The starting position's ID
+ * @param {string[]|string} arrangement A starting position's arrangement
+ * @returns {number} The starting position's ID, or `-1` if invalid arrangement
  */
 export function encode(arrangement) {
-  if (!Array.isArray(arrangement)) arrangement = Array.from(arrangement)
+  if (!validArrangement(arrangement)) return -1
+  if (typeof arrangement === 'string') arrangement = Array.from(arrangement)
 
   let id = 0
 
@@ -58,7 +60,7 @@ export function encode(arrangement) {
   const secondB = arrangement.lastIndexOf('B')
   id += BISHOP_TABLE.indexOf(parseInt('' + firstB + secondB))
 
-  return id
+  return id < 0 ? -1 : id
 }
 
 /**
@@ -67,9 +69,12 @@ export function encode(arrangement) {
  * @see {@link https://en.wikipedia.org/wiki/Fischer_Random_Chess_numbering_scheme}
  *
  * @param {number} id An ID of a starting position
- * @returns {string[]} The starting position's arrangement of pieces
+ * @returns {string[]} The starting position's arrangement, or `false` if
+ *    invalid ID
  */
 export function decode(id) {
+  if (!validID(id)) return false
+
   const arrangement = [0, 1, 2, 3, 4, 5, 6, 7]
 
   // Places a piece on the nth free square from the left
@@ -107,12 +112,12 @@ export function decode(id) {
  *
  * @see {@link https://en.wikipedia.org/wiki/Fischer_Random_Chess_starting_position}
  *
- * @returns {string[]} The starting position's arrangement of pieces
+ * @returns {string[]} The starting position's arrangement
  */
 export function generate() {
   const arrangement = new Array(8)
 
-  // Places a piece on a square in the arrangement
+  // Places a piece on a square
   const place = (piece, square) => (arrangement[square] = piece)
 
   let squares = [
@@ -164,4 +169,6 @@ export {
   toUpperCase,
   toMirror,
   toUnicode,
+  validArrangement,
+  validID,
 } from './helpers.js'

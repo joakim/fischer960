@@ -44,7 +44,6 @@ A few things to be aware of:
 - IDs are zero-indexed (0-959, the standard starting position having ID 518)
 - `generate()` and `decode()` return the starting position as an array (use the `toString()` helper function to convert it to a string)
 - An `arrangement` argument accepts either an array (`['B', 'B', 'Q', 'N', 'N', 'R', 'K', 'R']`) or a string (`'BBQNNRKR'`) of pieces
-- There's no validation, all functions expect valid input and may or may not break horribly if passed invalid arrangements or IDs
 
 ## Main functions
 
@@ -68,7 +67,7 @@ let id = encode(sp) // -> eg. 518
 
 ### `decode(id)`
 
-Given an ID, returns the starting position's arrangement of pieces.
+Given an ID, returns the starting position's arrangement of pieces, or `false` if ID is invalid.
 
 ```js
 decode(518) // -> eg. ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']
@@ -86,7 +85,7 @@ let sp = decode(id) // -> eg. ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']
 
 ### `encode(arrangement)`
 
-Given an arrangement of pieces, returns the starting position's ID.
+Given an arrangement of pieces, returns the starting position's ID, or `-1` if arrangement is invalid.
 
 ```js
 encode(['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']) // -> 518
@@ -150,8 +149,30 @@ Converts an arrangement of pieces to Unicode symbols.
 
 The `color` argument is optional and defaults to white (falsy = white, truthy = black).
 
+Note: There's no way to convert back to letters from Unicode symbols.
+
 ```js
 toUnicode(['B', 'B', 'Q', 'N', 'N', 'R', 'K', 'R']) // -> ['♗', '♗', '♕', '♘', '♘', '♖', '♔', '♖']
 toUnicode('BBQNNRKR') // -> '♗♗♕♘♘♖♔♖'
 toUnicode('BBQNNRKR', true) // -> '♝♝♛♞♞♜♚♜'
+```
+
+### `validArrangement(arrangement)`
+
+Validates a starting position's arrangement of pieces.
+
+```js
+validArrangement(['B', 'B', 'Q', 'N', 'N', 'R', 'K', 'R']) // -> true
+validArrangement('KQRBRBNN') // -> false (not a valid starting position)
+```
+
+### `validID(id)`
+
+Validates a starting position's ID.
+
+Note: 960 is not a valid ID, as this library uses zero-based IDs.
+
+```js
+validID(0) // -> true
+validID(960) // -> false
 ```

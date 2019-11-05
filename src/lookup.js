@@ -1,7 +1,7 @@
 /**
- * @file An alternative version of the fischer960 library that uses a 14KB
- * lookup table instead of algorithms. This was the original library and is
- * kept mainly for reference.
+ * @file An alternative version of the fischer960 library that uses a 14 KB
+ *    lookup table instead of algorithms. This was the original library and is
+ *    kept mainly for reference.
  */
 
 import { random } from './random.js'

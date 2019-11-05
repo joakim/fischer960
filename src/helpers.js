@@ -1,7 +1,7 @@
 /**
  * @file An alternative version of the library using a 14KB lookup table
- * instead of algorithms. This was the original library and is included here
- * mainly for reference.
+ *    instead of algorithms. This was the original library and is included here
+ *    mainly for reference.
  */
 
 /**
@@ -20,42 +20,50 @@ const UNICODE = {
 /**
  * Converts an arrangement of pieces from `Array` to `String`.
  *
- * @param {string[]} arrangement A starting position's arrangement of pieces
- * @returns {string} The same arrangement of pieces as a string
+ * @param {string[]} arrangement A starting position's arrangement
+ * @returns {string|boolean} The same arrangement as a string, or `false` if
+ *    invalid arrangement
  */
 export function toString(arrangement) {
-  return Array.isArray(arrangement) ? arrangement.join('') : String(arrangement)
+  if (!validArrangement(arrangement)) return false
+  return Array.isArray(arrangement) ? arrangement.join('') : arrangement
 }
 
 /**
  * Converts an arrangement of pieces from `String` to `Array`.
  *
- * @param {string} arrangement A starting position's arrangement of pieces
- * @returns {string[]} The same arrangement of pieces as an array
+ * @param {string} arrangement A starting position's arrangement
+ * @returns {string[]} The same arrangement as an array, or `false` if invalid
+ *    arrangement
  */
 export function toArray(arrangement) {
+  if (!validArrangement(arrangement)) return false
   return Array.from(arrangement)
 }
 
 /**
- * Converts an arrangement of pieces to lowercase notation.
+ * Converts an arrangement of pieces to lowercase letters.
  *
- * @param {string[]|string} arrangement A starting position's arrangement of pieces
- * @returns {string[]|string} The same arrangement in lowercase
+ * @param {string[]|string} arrangement A starting position's arrangement
+ * @returns {string[]|string} The same arrangement in lowercase letters, or
+ *    `false` if invalid arrangement
  */
 export function toLowerCase(arrangement) {
+  if (!validArrangement(arrangement)) return false
   const type = typeof arrangement
   const converted = Array.from(arrangement).map(piece => piece.toLowerCase())
   return type === 'string' ? converted.join('') : converted
 }
 
 /**
- * Converts an arrangement of pieces to uppercase notation.
+ * Converts an arrangement of pieces to uppercase letters.
  *
- * @param {string[]|string} arrangement A starting position's arrangement of pieces
- * @returns {string[]|string} The same arrangement in uppercase
+ * @param {string[]|string} arrangement A starting position's arrangement
+ * @returns {string[]|string} The same arrangement in uppercase letters, or
+ *    `false` if invalid arrangement
  */
 export function toUpperCase(arrangement) {
+  if (!validArrangement(arrangement)) return false
   const type = typeof arrangement
   const converted = Array.from(arrangement).map(piece => piece.toUpperCase())
   return type === 'string' ? converted.join('') : converted
@@ -64,10 +72,12 @@ export function toUpperCase(arrangement) {
 /**
  * Mirrors a starting position's arrangement of pieces (its "twin").
  *
- * @param {string[]|string} arrangement A starting position's arrangement of pieces
- * @returns {string[]|string} The mirrored arrangement of pieces
+ * @param {string[]|string} arrangement A starting position's arrangement
+ * @returns {string[]|string} The mirrored arrangement of pieces, or `false` if
+ *    invalid arrangement
  */
 export function toMirror(arrangement) {
+  if (!validArrangement(arrangement)) return false
   const type = typeof arrangement
   const mirror = Array.from(arrangement).reverse()
   return type === 'string' ? mirror.join('') : mirror
@@ -76,14 +86,64 @@ export function toMirror(arrangement) {
 /**
  * Converts an arrangement of pieces to Unicode symbols.
  *
- * @param {string[]|string} arrangement A starting position's arrangement of pieces
+ * @param {string[]|string} arrangement A starting position's arrangement
  * @param {boolean} [color=0] The color of the pieces (0 = white, 1 = black)
- * @returns {string[]|string} The same arrangement of pieces in Unicode symbols
+ * @returns {string[]|string} The same arrangement in Unicode symbols, or
+ *    `false` if invalid arrangement
  */
 export function toUnicode(arrangement, color = 0) {
+  if (!validArrangement(arrangement)) return false
   const type = typeof arrangement
-  const converted = Array.from(arrangement).map(
+  const converted = toUpperCase(arrangement).map(
     piece => UNICODE[piece][color ? 1 : 0]
   )
   return type === 'string' ? converted.join('') : converted
+}
+
+/**
+ * Validates a starting position's arrangement of pieces.
+ *
+ * @param {string[]|string} arrangement A starting position's arrangement
+ * @returns {boolean} `true` if the arrangement is valid, otherwise `false`
+ */
+export function validArrangement(arrangement) {
+  if (!Array.isArray(arrangement) && typeof arrangement !== 'string')
+    return false
+  if (arrangement.length !== 8) return false
+
+  if (Array.isArray(arrangement)) arrangement = arrangement.join('')
+
+  const count = piece =>
+    (arrangement.match(new RegExp(piece, 'gi')) || []).length
+
+  // Check the presence of all pieces
+  let pieces =
+    count('K') === 1 &&
+    count('Q') === 1 &&
+    count('R') === 2 &&
+    count('B') === 2 &&
+    count('N') === 2
+
+  // Check the positions of bishops
+  let b1 = arrangement.indexOf('B')
+  let b2 = arrangement.lastIndexOf('B')
+  let bishops = (b2 - b1) % 2
+
+  // Check the positions of rooks
+  let k = arrangement.indexOf('K')
+  let rooks = arrangement[k - 1] === 'R' && arrangement[k + 1] === 'R'
+
+  return pieces && bishops && rooks
+}
+
+/**
+ * Validates a starting position's ID.
+ *
+ * Note: 960 is not a valid ID, as this library uses zero-based IDs.
+ *
+ * @param {number} id An ID of a starting position
+ * @returns {boolean} `true` if the ID is valid, otherwise `false`
+ */
+export function validID(id) {
+  return Number.isInteger(id) && id >= 0 && id <= 959
 }
