@@ -36,6 +36,16 @@ Given an ID, finds the starting position's arrangement of pieces.
 
 ## Helper functions
 
+A set of helper functions for manipulating arrangements are also provided. Except for `toString()` and `toArray()`, these return the same type that was provided (ie. if you pass a string you get a string back).
+
+### `toLowerCase(arrangement)`
+
+Converts an arrangement of pieces to lowercase notation.
+
+### `toUpperCase(arrangement)`
+
+Converts an arrangement of pieces to uppercase notation.
+
 ### `toString(arrangement)`
 
 Converts an arrangement of pieces from `Array` to `String`.
