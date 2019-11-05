@@ -26,7 +26,8 @@
     "build": "rollup -c",
     "dev": "rollup -c -w",
     "test": "node test/test.js",
-    "pretest": "yarn build"
+    "pretest": "yarn build",
+    "release": "node -r dotenv/config ./node_modules/.bin/release-it"
   },
   "engines": {
     "node": ">= 9.0.0"
@@ -35,10 +36,17 @@
   "devDependencies": {
     "@rollup/plugin-buble": "^0.20.0",
     "@rollup/plugin-replace": "^2.2.0",
+    "dotenv": "^8.2.0",
     "eslint": "^6.6.0",
     "prettier": "joakim/prettiest",
+    "release-it": "^12.4.3",
     "rollup": "^1.26.3",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0"
+  },
+  "release-it": {
+    "github": {
+      "release": true
+    }
   }
 }
