@@ -162,8 +162,8 @@ toUnicode('BBQNNRKR', true) // -> '♝♝♛♞♞♜♚♜'
 Validates a starting position's arrangement of pieces.
 
 ```js
-validArrangement(['B', 'B', 'Q', 'N', 'N', 'R', 'K', 'R']) // -> true
-validArrangement('KQRBRBNN') // -> false (not a valid starting position)
+isValidArrangement(['B', 'B', 'Q', 'N', 'N', 'R', 'K', 'R']) // -> true
+isValidArrangement('KQRBRBNN') // -> false (not a valid starting position)
 ```
 
 #### `isValidID(id)`
@@ -173,6 +173,6 @@ Validates a starting position's ID.
 Note: `960` is not a valid ID, as this library uses zero-based IDs.
 
 ```js
-validID(0) // -> true
-validID(960) // -> false
+isValidID(0) // -> true
+isValidID(960) // -> false
 ```
