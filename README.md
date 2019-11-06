@@ -1,13 +1,11 @@
 # Fischer960
 
-A Fischer Random Chess / Chess960 library for JS.
-
-It uses algorithms to produce results, no large lookup tables needed.
+A Fischer Random Chess / Chess960 library for JS based on algorithms, no large lookup tables needed.
 
 ```js
 let sp = fischer.random()
-sp.id // 518
-sp.arrangement // ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']
+sp.id // -> 518
+sp.arrangement // -> ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']
 ```
 
 ## Install
@@ -53,7 +51,7 @@ A few things to be aware of:
 
 Generates a random starting position, returning its ID and arrangement of pieces.
 
-If the optional `strong` argument is set to `true`, it will use a cryptographically strong pseudo-random number generator that is slower, but more random. Defaults to ´false`.
+If the optional `strong` argument is set to `true`, it will use a cryptographically strong pseudo-random number generator that is slower, but more random. Defaults to `false`.
 
 ```js
 random() // -> eg. { id: 518, arrangement: ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'] }
@@ -63,7 +61,7 @@ random() // -> eg. { id: 518, arrangement: ['R', 'N', 'B', 'Q', 'K', 'B', 'N', '
 
 Picks a random starting position's ID.
 
-If the optional `strong` argument is set to `true`, it will use a cryptographically strong pseudo-random number generator that is slower, but more random. Defaults to ´false`.
+If the optional `strong` argument is set to `true`, it will use a cryptographically strong pseudo-random number generator that is slower, but more random. Defaults to `false`.
 
 ```js
 randomID() // -> eg. 518
