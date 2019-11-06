@@ -7,6 +7,26 @@
 import { isValidArrangement, isValidID } from './helpers.js'
 
 /**
+ * Returns a random starting position, with its ID and arrangement.
+ *
+ * @returns {Object} An object with the starting position's ID and arrangement
+ */
+export function random() {
+  const id = randomID()
+  const arrangement = decode(id)
+  return { id, arrangement }
+}
+
+/**
+ * Picks a random starting position's ID.
+ *
+ * @returns {number} The starting position's ID
+ */
+export function randomID() {
+  return Math.floor(Math.random() * 960)
+}
+
+/**
  * Given an ID, returns the starting position's arrangement of pieces.
  *
  * @see {@link https://en.wikipedia.org/wiki/Fischer_Random_Chess_numbering_scheme}
