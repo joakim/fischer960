@@ -5,14 +5,9 @@ A Fischer Random Chess / Chess960 library for JS.
 It uses algorithms to produce results, no large lookup tables needed.
 
 ```js
-// Generate a random starting position
-let sp = generate()
-
-// Get the ID of the starting position
-let id = encode(sp)
-
-// Derive a starting position directly from its ID
-let sp518 = decode(518)
+let sp = fischer.random()
+sp.id // 518
+sp.arrangement // ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']
 ```
 
 ## Install
@@ -29,40 +24,49 @@ With NPM:
 
 The library is available as CJS for Node, ESM for bundlers and UMD for legacy environments. A bundler (Webpack/Rollup/etc) is recommended for use in browsers.
 
-In modern JS environments it's common practice to import/require only the functions that are to be used:
+In modern JS environments one can import/require only the functions that are to be used:
 
 ```js
 // ES module environments (Webpack/Rollup/etc)
-import { generate, decode, toUnicode } from 'fischer960'
+import { random, toString, toUnicode } from 'fischer960'
 
-// CJS environments (Node)
-const { generate, decode, toUnicode } = require('fischer960')
+// CJS environments (Node.js without experimental modules enabled)
+const { random, toString, toUnicode } = require('fischer960')
+```
+
+But this will let you write `fischer.random()` 😎:
+
+```js
+import * as fischer from 'fischer960'
+let sp = fischer.random()
 ```
 
 A few things to be aware of:
 
-- IDs are zero-indexed (`0`-`959`, the standard starting position having ID `518`)
-- `generate()` and `decode()` return the starting position as an array (use the `toString()` helper function to convert it to a string)
-- An `arrangement` argument accepts either an array (`['B', 'B', 'Q', 'N', 'N', 'R', 'K', 'R']`) or a string (`'BBQNNRKR'`) of pieces
+- IDs are zero-indexed (0-959, the standard starting position is 518)
+- `random()` and `decode()` return the arrangement as an array (see the `toString()` helper function for converting to a string)
+- `arrangement` arguments accept either an array (`['B', 'B', 'Q', 'N', 'N', 'R', 'K', 'R']`) or a string (`'BBQNNRKR'`)
 
 ### Main functions
 
-#### `generate()`
+#### `random(strong)`
 
-Generates a random starting position, returning its arrangement of pieces.
+Generates a random starting position, returning its ID and arrangement of pieces.
+
+If the optional `strong` argument is set to `true`, it will use a cryptographically strong pseudo-random number generator that is slower, but more random. Defaults to ´false`.
 
 ```js
-generate() // -> eg. ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']
+random() // -> eg. { id: 518, arrangement: ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'] }
 ```
 
-Example for how to get both the ID and arrangement of a random starting position:
+#### `randomID(strong)`
+
+Picks a random starting position's ID.
+
+If the optional `strong` argument is set to `true`, it will use a cryptographically strong pseudo-random number generator that is slower, but more random. Defaults to ´false`.
 
 ```js
-// Pick a starting position at random
-let sp = generate() // -> eg. ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']
-
-// Get the ID of that starting position
-let id = encode(sp) // -> eg. 518
+randomID() // -> eg. 518
 ```
 
 #### `decode(id)`
@@ -71,16 +75,6 @@ Given an ID, returns the starting position's arrangement of pieces, or `false` i
 
 ```js
 decode(518) // -> eg. ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']
-```
-
-Example for how to get both the ID and arrangement of a random starting position:
-
-```js
-// Pick an ID at random
-let id = Math.floor(Math.random() * 960) // -> 0-959
-
-// Get the starting position for that ID
-let sp = decode(id) // -> eg. ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']
 ```
 
 #### `encode(arrangement)`
@@ -176,3 +170,17 @@ Note: `960` is not a valid ID, as this library uses zero-based IDs.
 isValidID(0) // -> true
 isValidID(960) // -> false
 ```
+
+## Benchmark
+
+Performance doesn't matter if you're only generating one starting position, but it doesn't hurt to be fast 🚀
+
+Run `yarn benchmark` or `npm run benchmark` to compare the three ways of generating a random starting position. Here's my results:
+
+```
+random() x 3,306,681 ops/sec ±0.70% (91 runs sampled)
+random(true) x 428,083 ops/sec ±0.47% (95 runs sampled)
+generate() x 228,541 ops/sec ±0.60% (91 runs sampled)
+```
+
+`random()` is by far the fastest. `random(true)` has better entropy at the cost of being ~7.7 times slower. The original and now deprecated `generate()` is the slowest, ~14.5 times slower than `random()`.
