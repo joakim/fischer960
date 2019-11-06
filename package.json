@@ -50,11 +50,15 @@
     "rollup-plugin-node-resolve": "^5.2.0"
   },
   "ava": {
-    "babel": false,
-    "compileEnhancements": false,
+    "files": [
+      "test/**/*",
+      "!test/benchmark.js"
+    ],
     "require": [
       "esm"
-    ]
+    ],
+    "babel": false,
+    "compileEnhancements": false
   },
   "release-it": {
     "github": {

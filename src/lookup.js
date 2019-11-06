@@ -4,7 +4,6 @@
  *    kept mainly for reference.
  */
 
-import { random } from './random.js'
 import { isValidArrangement, isValidID } from './helpers.js'
 
 /**
@@ -43,7 +42,7 @@ export function encode(arrangement) {
  * @returns {string[]} The starting position's arrangement of pieces
  */
 export function generate() {
-  const id = Math.floor(random() * 960)
+  const id = Math.floor(Math.random() * 960)
   return Array.from(POSITIONS[id])
 }
 
