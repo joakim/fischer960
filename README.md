@@ -41,7 +41,7 @@ const { generate, decode, toUnicode } = require('fischer960')
 
 A few things to be aware of:
 
-- IDs are zero-indexed (0-959, the standard starting position having ID 518)
+- IDs are zero-indexed (`0`-`959`, the standard starting position having ID `518`)
 - `generate()` and `decode()` return the starting position as an array (use the `toString()` helper function to convert it to a string)
 - An `arrangement` argument accepts either an array (`['B', 'B', 'Q', 'N', 'N', 'R', 'K', 'R']`) or a string (`'BBQNNRKR'`) of pieces
 
@@ -157,7 +157,7 @@ toUnicode('BBQNNRKR') // -> '♗♗♕♘♘♖♔♖'
 toUnicode('BBQNNRKR', true) // -> '♝♝♛♞♞♜♚♜'
 ```
 
-#### `validArrangement(arrangement)`
+#### `isValidArrangement(arrangement)`
 
 Validates a starting position's arrangement of pieces.
 
@@ -166,11 +166,11 @@ validArrangement(['B', 'B', 'Q', 'N', 'N', 'R', 'K', 'R']) // -> true
 validArrangement('KQRBRBNN') // -> false (not a valid starting position)
 ```
 
-#### `validID(id)`
+#### `isValidID(id)`
 
 Validates a starting position's ID.
 
-Note: 960 is not a valid ID, as this library uses zero-based IDs.
+Note: `960` is not a valid ID, as this library uses zero-based IDs.
 
 ```js
 validID(0) // -> true

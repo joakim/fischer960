@@ -4,25 +4,25 @@ import {
   generate,
   encode,
   decode,
-  validArrangement,
+  isValidArrangement,
 } from '../src/main.js'
 
 import { POSITIONS } from '../src/lookup.js'
 
-test('validArrangement() actually validates valid arrangements', t => {
+test('isValidArrangement() actually validates valid arrangements', t => {
   t.plan(960)
 
   // Validate all arrangements in the lookup table
   for (let id = 0; id < 960; id++) {
-    t.true(validArrangement(POSITIONS[id]))
+    t.true(isValidArrangement(POSITIONS[id]))
   }
 })
 
-test('validArrangement() actually invalidates invalid arrangements', t => {
+test('isValidArrangement() actually invalidates invalid arrangements', t => {
   t.plan(3)
-  t.false(validArrangement('NONONONO')) // Obviously wrong
-  t.false(validArrangement('KQRNNBBR')) // Both rooks on one side of the king
-  t.false(validArrangement('BNBQRNKR')) // Bishops on same colored squares
+  t.false(isValidArrangement('NONONONO')) // Obviously wrong
+  t.false(isValidArrangement('KQRNNBBR')) // Both rooks on one side of the king
+  t.false(isValidArrangement('BNBQRNKR')) // Bishops on same colored squares
 })
 
 test('generate() returns only correct arrangements', t => {
@@ -67,3 +67,4 @@ test.todo('toLowerCase()')
 test.todo('toUpperCase()')
 test.todo('toMirror()')
 test.todo('toUnicode()')
+test.todo('isValidID()')

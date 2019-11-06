@@ -3,7 +3,7 @@
  */
 
 import { random } from './random.js'
-import { validArrangement, validID } from './helpers.js'
+import { isValidArrangement, isValidID } from './helpers.js'
 
 /**
  * Lookup table of KRN sequences, used by `encode()`.
@@ -33,7 +33,7 @@ const BISHOP_TABLE = [1, 3, 5, 7, 12, 23, 25, 27, 14, 34, 45, 47, 16, 36, 56, 67
  * @returns {number} The starting position's ID, or `-1` if invalid arrangement
  */
 export function encode(arrangement) {
-  if (!validArrangement(arrangement)) return -1
+  if (!isValidArrangement(arrangement)) return -1
   if (typeof arrangement === 'string') arrangement = Array.from(arrangement)
 
   let id = 0
@@ -63,7 +63,7 @@ export function encode(arrangement) {
  *    invalid ID
  */
 export function decode(id) {
-  if (!validID(id)) return false
+  if (!isValidID(id)) return false
 
   const arrangement = [0, 1, 2, 3, 4, 5, 6, 7]
 
@@ -159,6 +159,6 @@ export {
   toUpperCase,
   toMirror,
   toUnicode,
-  validArrangement,
-  validID,
+  isValidArrangement,
+  isValidID,
 } from './helpers.js'

@@ -5,15 +5,7 @@
  */
 
 import { random } from './random.js'
-
-export {
-  toString,
-  toArray,
-  toLowerCase,
-  toUpperCase,
-  toMirror,
-  toUnicode,
-} from './helpers.js'
+import { isValidArrangement, isValidID } from './helpers.js'
 
 /**
  * Given an ID, returns the starting position's arrangement of pieces.
@@ -21,9 +13,11 @@ export {
  * @see {@link https://en.wikipedia.org/wiki/Fischer_Random_Chess_numbering_scheme}
  *
  * @param {number} id An ID of a starting position
- * @returns {string[]} The starting position's arrangement of pieces
+ * @returns {string[]} The starting position's arrangement, or `false` if
+ *    invalid ID
  */
 export function decode(id) {
+  if (!isValidID(id)) return false
   return Array.from(POSITIONS[parseInt(id)])
 }
 
@@ -32,10 +26,11 @@ export function decode(id) {
  *
  * @see {@link https://chess960frc.blogspot.com/2010/11/calculate-sp-numbers-in-your-head.html}
  *
- * @param {string[]|string} arrangement A starting position's arrangement of pieces
- * @returns {number} The starting position's ID
+ * @param {string[]|string} arrangement A starting position's arrangement
+ * @returns {number} The starting position's ID, or `-1` if invalid arrangement
  */
 export function encode(arrangement) {
+  if (!isValidArrangement(arrangement)) return -1
   if (Array.isArray(arrangement)) arrangement = arrangement.join('')
   return POSITIONS.indexOf(arrangement)
 }
