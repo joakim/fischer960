@@ -2,7 +2,7 @@
  * @file Entry point of the library, containing the main functions.
  */
 
-import { random } from './random.js'
+import { strongRandom } from './random.js'
 import { isValidArrangement, isValidID } from './helpers.js'
 
 /**
@@ -23,6 +23,30 @@ const KRN_TABLE = ['NNRKR', 'NRNKR', 'NRKNR', 'NRKRN', 'RNNKR', 'RNKNR', 'RNKRN'
  */
 // prettier-ignore
 const BISHOP_TABLE = [1, 3, 5, 7, 12, 23, 25, 27, 14, 34, 45, 47, 16, 36, 56, 67]
+
+/**
+ * Generates a random starting position, returning its ID and arrangement.
+ *
+ * @param {boolean} [strong=false] Use a cryptographically strong pseudo-random
+ *    number generator (slower, but more random)
+ * @returns {Object} An object with the starting position's ID and arrangement
+ */
+export function random(strong = false) {
+  const id = randomID(strong)
+  const arrangement = decode(id)
+  return { id, arrangement }
+}
+
+/**
+ * Picks a random starting position's ID.
+ *
+ * @param {boolean} [strong=false] Use a cryptographically strong pseudo-random
+ *    number generator (slower, but more random)
+ * @returns {number} The starting position's ID
+ */
+export function randomID(strong = false) {
+  return Math.floor(strong ? strongRandom() : Math.random() * 960)
+}
 
 /**
  * Given an arrangement of pieces, returns the starting position's ID.
@@ -124,7 +148,7 @@ export function generate() {
 
   // Place each bishop on a random black/white square
   pieces[0].forEach((piece, squareColor) => {
-    let index = Math.floor(random() * 4)
+    let index = Math.floor(Math.random() * 4)
 
     // Place the piece on the given square
     place(piece, squares[squareColor][index])
@@ -138,7 +162,7 @@ export function generate() {
 
   // Place queen and knights on random remaining squares
   pieces[1].forEach(piece => {
-    let index = Math.floor(random() * squares.length)
+    let index = Math.floor(Math.random() * squares.length)
     place(piece, squares[index])
     squares.splice(index, 1)
   })
