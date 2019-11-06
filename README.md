@@ -4,6 +4,7 @@ A Fischer Random Chess / Chess960 library for JS based on algorithms, no large l
 
 ```js
 let sp = fischer.random()
+
 sp.id // -> 518
 sp.arrangement // -> ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']
 ```
