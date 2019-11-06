@@ -122,10 +122,12 @@ export function decode(id) {
 }
 
 /**
- * Generates a random starting position from scratch.
+ * Generates a random starting position from scratch (slow).
  *
  * @see {@link https://en.wikipedia.org/wiki/Fischer_Random_Chess_starting_position}
  *
+ * @deprecated since 0.3.2
+ * @see {@link random} for a faster alternative
  * @returns {string[]} The starting position's arrangement
  */
 export function generate() {
