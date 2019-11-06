@@ -17,7 +17,7 @@ With Yarn:
 
 With NPM:
 
-`npm install --save fischer960`
+`npm install fischer960`
 
 ## Use
 
