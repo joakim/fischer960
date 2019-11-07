@@ -177,19 +177,19 @@ Performance doesn't matter if you only need one starting position at a time, but
 Run `yarn benchmark` or `npm run benchmark` to compare the three ways of returning a random starting position. Here's my results:
 
 ```
-random() x 3,335,898 ops/sec ±0.51% (93 runs sampled)
-random(true) x 431,062 ops/sec ±0.45% (94 runs sampled)
-generate() x 229,787 ops/sec ±0.53% (91 runs sampled)
+random() x 3,360,058 ops/sec ±0.51% (95 runs sampled)
+random(true) x 421,398 ops/sec ±0.44% (94 runs sampled)
+generate() x 217,324 ops/sec ±0.51% (89 runs sampled)
 ```
 
 - `random()` is by far the fastest of these
-- `random(true)` has better entropy, at the cost of being ~7.7 times slower
-- `generate()` (now deprecated) was ~14.5 times slower than `random()`
+- `random(true)` has better entropy, at the cost of being ~8 times slower
+- `generate()` (now deprecated) was ~15 times slower than `random()`
 
-If for some reason performance is essential, using a lookup table is about 5 times faster than `random()`:
+If for some reason performance is essential, using a lookup table is ~5 times faster than `random()`:
 
 ```
-lookup() x 17,423,333 ops/sec ±0.74% (90 runs sampled)
+lookup() x 18,632,990 ops/sec ±0.41% (93 runs sampled)
 ```
 
-But this comes at the cost of ~14 KB extra for the lookup table. If that's OK, see `src/lookup.js`.
+But that comes at the cost of ~14 KB extra file size. If that's OK, see `src/lookup.js`.
