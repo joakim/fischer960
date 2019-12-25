@@ -26,11 +26,7 @@ The library is available as CJS for Node, ESM for bundlers and UMD for legacy en
 In modern JS environments one can import/require only the functions that are to be used:
 
 ```js
-// ES module environments (Webpack/Rollup/etc)
 import { random, toString, toUnicode } from 'fischer960'
-
-// CJS environments (Node.js without experimental modules enabled)
-const { random, toString, toUnicode } = require('fischer960')
 ```
 
 But this will let you write `fischer.random()` 😎:
@@ -42,9 +38,9 @@ let sp = fischer.random()
 
 A few things to be aware of:
 
-- IDs are zero-indexed (0-959, the standard starting position is 518)
-- `random()` and `decode()` return the arrangement as an array (see the `toString()` helper function for converting to a string)
-- `arrangement` arguments accept either an array (`['B', 'B', 'Q', 'N', 'N', 'R', 'K', 'R']`) or a string (`'BBQNNRKR'`)
+- IDs are zero-indexed (0-959, the standard starting position being 518)
+- `random()` and `decode()` return the arrangement as an array (for converting to a string, see `toString()`)
+- All `arrangement` arguments take either an array (`['B', 'B', 'Q', 'N', 'N', 'R', 'K', 'R']`) or a string (`'BBQNNRKR'`)
 
 ### Main functions
 
@@ -81,7 +77,6 @@ decode(518) // -> eg. ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']
 Given an arrangement of pieces, returns the starting position's ID, or `-1` if arrangement is invalid.
 
 ```js
-encode(['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']) // -> 518
 encode('RKRNNQBB') // -> 959
 ```
 
@@ -97,7 +92,6 @@ Converts an arrangement of pieces from `Array` to `String`.
 
 ```js
 toString(['B', 'B', 'Q', 'N', 'N', 'R', 'K', 'R']) // -> 'BBQNNRKR'
-toString(['b', 'b', 'q', 'n', 'n', 'r', 'k', 'r']) // -> 'bbqnnrkr'
 ```
 
 #### `toArray(arrangement)`
@@ -106,7 +100,6 @@ Converts an arrangement of pieces from `String` to `Array`.
 
 ```js
 toArray('BBQNNRKR') // -> ['B', 'B', 'Q', 'N', 'N', 'R', 'K', 'R']
-toArray('bbqnnrkr') // -> ['b', 'b', 'q', 'n', 'n', 'r', 'k', 'r']
 ```
 
 #### `toLowerCase(arrangement)`
@@ -114,7 +107,6 @@ toArray('bbqnnrkr') // -> ['b', 'b', 'q', 'n', 'n', 'r', 'k', 'r']
 Converts an arrangement of pieces to lowercase notation.
 
 ```js
-toLowerCase(['B', 'B', 'Q', 'N', 'N', 'R', 'K', 'R']) // -> ['b', 'b', 'q', 'n', 'n', 'r', 'k', 'r']
 toLowerCase('BBQNNRKR') // -> 'bbqnnrkr'
 ```
 
@@ -123,7 +115,6 @@ toLowerCase('BBQNNRKR') // -> 'bbqnnrkr'
 Converts an arrangement of pieces to uppercase notation.
 
 ```js
-toUpperCase(['b', 'b', 'q', 'n', 'n', 'r', 'k', 'r']) // -> ['B', 'B', 'Q', 'N', 'N', 'R', 'K', 'R']
 toUpperCase('bbqnnrkr') // -> 'BBQNNRKR'
 ```
 
@@ -132,7 +123,6 @@ toUpperCase('bbqnnrkr') // -> 'BBQNNRKR'
 Mirrors a starting position's arrangement of pieces (returns its "twin").
 
 ```js
-toMirror(['B', 'B', 'Q', 'N', 'N', 'R', 'K', 'R']) // -> ['R', 'K', 'R', 'N', 'N', 'Q', 'B', 'B']
 toMirror('BBQNNRKR') // -> 'RKRNNQBB'
 ```
 
@@ -145,7 +135,6 @@ The `color` argument is optional and defaults to white (falsy = white, truthy = 
 Note: There's no way to convert back to letters from Unicode symbols.
 
 ```js
-toUnicode(['B', 'B', 'Q', 'N', 'N', 'R', 'K', 'R']) // -> ['♗', '♗', '♕', '♘', '♘', '♖', '♔', '♖']
 toUnicode('BBQNNRKR') // -> '♗♗♕♘♘♖♔♖'
 toUnicode('BBQNNRKR', true) // -> '♝♝♛♞♞♜♚♜'
 ```
@@ -155,7 +144,7 @@ toUnicode('BBQNNRKR', true) // -> '♝♝♛♞♞♜♚♜'
 Validates a starting position's arrangement of pieces.
 
 ```js
-isValidArrangement(['B', 'B', 'Q', 'N', 'N', 'R', 'K', 'R']) // -> true
+isValidArrangement('BBQNNRKR') // -> true
 isValidArrangement('KQRBRBNN') // -> false (not a valid starting position)
 ```
 
@@ -186,10 +175,10 @@ generate() x 217,324 ops/sec ±0.51% (89 runs sampled)
 - `random(true)` has better entropy, at the cost of being ~8 times slower
 - `generate()` (now deprecated) was ~15 times slower than `random()`
 
-If for some reason performance is essential, using a lookup table is ~5 times faster than `random()`:
+If, for some reason, performance is essential, using a lookup table will be ~5 times faster than `random()`:
 
 ```
 lookup() x 18,632,990 ops/sec ±0.41% (93 runs sampled)
 ```
 
-But that comes at the cost of ~14 KB extra file size. If that's OK, see `src/lookup.js`.
+However, that comes at the cost of ~14 KB extra file size. If that's OK, see `src/lookup.js`.
