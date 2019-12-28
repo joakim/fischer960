@@ -43,7 +43,7 @@ A few things to be aware of:
 
 Generates a random starting position, returning its ID and arrangement of pieces.
 
-If the optional `strong` argument is set to `true`, it will use a cryptographically strong pseudo-random number generator that is slower, but more random. Defaults to `false`.
+If the optional `strong` argument is set to `true`, it will use a cryptographically strong pseudo-random number generator that is slower, but with higher entropy. Defaults to `false`.
 
 ```js
 random() // -> eg. { id: 518, arrangement: ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'] }
