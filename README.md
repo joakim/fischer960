@@ -1,6 +1,6 @@
 # Fischer960
 
-A Fischer Random Chess / Chess960 library for JS based on algorithms, no large lookup tables needed.
+A Fischer Random Chess / Chess960 library for JS based on algorithms. No large lookup tables needed.
 
 ```js
 let sp = fischer.random()
@@ -11,25 +11,20 @@ sp.arrangement // -> ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']
 
 ## Install
 
-With Yarn:
-
-`yarn add fischer960`
-
-With NPM:
-
-`npm install fischer960`
+With Yarn: `yarn add fischer960`  
+With npm: `npm install fischer960`
 
 ## Use
 
-The library is available as CJS for Node, ESM for bundlers and UMD for legacy environments. A bundler (Webpack/Rollup/etc) is recommended for use in browsers.
+fischer960 is available as CJS for Node, ESM for bundlers and UMD for legacy environments. A bundler (Webpack/Rollup/etc) is recommended for use in browsers.
 
-In modern JS environments one can import/require only the functions that are to be used:
+One can import only the functions to be used:
 
 ```js
 import { random, toString, toUnicode } from 'fischer960'
 ```
 
-But this will let you write `fischer.random()` 😎:
+But importing the whole library will let you write `fischer.random()` 😎
 
 ```js
 import * as fischer from 'fischer960'
@@ -39,8 +34,8 @@ let sp = fischer.random()
 A few things to be aware of:
 
 - IDs are zero-indexed (0-959, the standard starting position being 518)
-- `random()` and `decode()` return the arrangement as an array (for converting to a string, see `toString()`)
-- All `arrangement` arguments take either an array (`['B', 'B', 'Q', 'N', 'N', 'R', 'K', 'R']`) or a string (`'BBQNNRKR'`)
+- `random()` and `decode()` return the arrangement as an array (to convert the array to a string, see `toString()`)
+- All `arrangement` arguments can take either an array (`['B', 'B', 'Q', 'N', 'N', 'R', 'K', 'R']`) or a string (`'BBQNNRKR'`)
 
 ### Main functions
 
@@ -58,7 +53,7 @@ random() // -> eg. { id: 518, arrangement: ['R', 'N', 'B', 'Q', 'K', 'B', 'N', '
 
 Picks a random starting position's ID.
 
-If the optional `strong` argument is set to `true`, it will use a cryptographically strong pseudo-random number generator that is slower, but more random. Defaults to `false`.
+If the optional `strong` argument is set to `true`, it will use a cryptographically strong pseudo-random number generator that is slower, but with higher entropy. Defaults to `false`.
 
 ```js
 randomID() // -> eg. 518
@@ -66,7 +61,7 @@ randomID() // -> eg. 518
 
 #### `decode(id)`
 
-Given an ID, returns the starting position's arrangement of pieces, or `false` if ID is invalid.
+Given an ID, returns the starting position's arrangement of pieces, or `false` if the ID is invalid.
 
 ```js
 decode(518) // -> eg. ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']
@@ -74,7 +69,7 @@ decode(518) // -> eg. ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']
 
 #### `encode(arrangement)`
 
-Given an arrangement of pieces, returns the starting position's ID, or `-1` if arrangement is invalid.
+Given an arrangement of pieces, returns the starting position's ID, or `-1` if the arrangement is invalid.
 
 ```js
 encode('RKRNNQBB') // -> 959
@@ -84,7 +79,7 @@ encode('RKRNNQBB') // -> 959
 
 A set of helper functions for manipulating arrangements are also provided.
 
-Except for `toString()` and `toArray()`, these return the same type that was provided (ie. if you pass a string you get a string, if you pass an array you get an array). Except for `toLowerCase()` and `toUpperCase()`, these also return the same case that was provided.
+Except for `toString()` and `toArray()`, these functions return the same type as was provided (if you pass a string you get a string, if you pass an array you get an array). Except for `toLowerCase()` and `toUpperCase()`, these also return the same case as was provided.
 
 #### `toString(arrangement)`
 
@@ -120,7 +115,7 @@ toUpperCase('bbqnnrkr') // -> 'BBQNNRKR'
 
 #### `toMirror(arrangement)`
 
-Mirrors a starting position's arrangement of pieces (returns its "twin").
+Mirrors an arrangement of pieces (returns its “twin”).
 
 ```js
 toMirror('BBQNNRKR') // -> 'RKRNNQBB'
