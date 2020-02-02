@@ -12,6 +12,7 @@
     "chess",
     "chess960",
     "frchess",
+    "fischerandom",
     "variant",
     "generator",
     "randomizer"
