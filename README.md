@@ -11,9 +11,10 @@ sp.arrangement // -> ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']
 
 ## Install
 
-npm: `npm i fischer960`
-yarn: `yarn add fischer960`
+npm: `npm i fischer960`  
+yarn: `yarn add fischer960`  
 pnpm: `npm add fischer960`
+
 
 ## Use
 
@@ -70,6 +71,7 @@ Given an arrangement of pieces, returns the starting position's ID, or `-1` if t
 ```js
 encode('RKRNNQBB') // -> 959
 ```
+
 
 ### Helper functions
 
