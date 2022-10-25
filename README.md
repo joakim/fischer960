@@ -13,7 +13,7 @@ sp.arrangement // -> ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']
 
 npm: `npm i fischer960`  
 yarn: `yarn add fischer960`  
-pnpm: `npm add fischer960`
+pnpm: `pnpm add fischer960`
 
 
 ## Use
