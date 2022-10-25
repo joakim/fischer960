@@ -9,11 +9,14 @@ sp.id // -> 518
 sp.arrangement // -> ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']
 ```
 
+
 ## Install
 
 npm: `npm i fischer960`  
 yarn: `yarn add fischer960`  
 pnpm: `pnpm add fischer960`
+
+There are no dependencies.
 
 
 ## Use
