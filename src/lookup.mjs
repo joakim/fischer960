@@ -4,7 +4,7 @@
  *    kept mainly for reference.
  */
 
-import { isValidArrangement, isValidID } from './helpers.js'
+import { isValidArrangement, isValidID } from './helpers'
 
 /**
  * Returns a random starting position, with its ID and arrangement.

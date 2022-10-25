@@ -2,8 +2,7 @@
  * @file Entry point of the library, containing the main functions.
  */
 
-import { strongRandom } from './random.js'
-import { isValidArrangement, isValidID } from './helpers.js'
+import { isValidArrangement, isValidID } from './helpers.mjs'
 
 /**
  * Lookup table of KRN sequences, used by `encode()`.
@@ -27,12 +26,10 @@ const BISHOP_TABLE = [1, 3, 5, 7, 12, 23, 25, 27, 14, 34, 45, 47, 16, 36, 56, 67
 /**
  * Generates a random starting position, returning its ID and arrangement.
  *
- * @param {boolean} [strong=false] Use a cryptographically strong pseudo-random
- *    number generator (slower, but more random)
  * @returns {Object} An object with the starting position's ID and arrangement
  */
-export function random(strong = false) {
-  const id = randomID(strong)
+export function random() {
+  const id = randomID()
   const arrangement = decode(id)
   return { id, arrangement }
 }
@@ -40,12 +37,10 @@ export function random(strong = false) {
 /**
  * Picks a random starting position's ID.
  *
- * @param {boolean} [strong=false] Use a cryptographically strong pseudo-random
- *    number generator (slower, but more random)
  * @returns {number} The starting position's ID
  */
-export function randomID(strong = false) {
-  return Math.floor(strong ? strongRandom() : Math.random() * 960)
+export function randomID() {
+  return Math.floor(Math.random() * 960)
 }
 
 /**
@@ -63,11 +58,11 @@ export function encode(arrangement) {
   let id = 0
 
   // Add value for the sequence of K, R, N
-  const sequence = arrangement.filter(piece => 'KRN'.includes(piece)).join('')
+  const sequence = arrangement.filter((piece) => 'KRN'.includes(piece)).join('')
   id += KRN_TABLE.indexOf(sequence) * 96
 
   // Add value for the position of the queen within K, R, N, Q
-  id += arrangement.filter(piece => 'KRNQ'.includes(piece)).indexOf('Q') * 16
+  id += arrangement.filter((piece) => 'KRNQ'.includes(piece)).indexOf('Q') * 16
 
   // Add value for the combined positions of the bishops
   const firstB = arrangement.indexOf('B')
@@ -121,63 +116,6 @@ export function decode(id) {
   return arrangement
 }
 
-/**
- * Generates a random starting position from scratch (slow).
- *
- * @see {@link https://en.wikipedia.org/wiki/Fischer_Random_Chess_starting_position}
- *
- * @deprecated since 0.3.2
- * @see {@link random} for a faster alternative
- * @returns {string[]} The starting position's arrangement
- */
-export function generate() {
-  const arrangement = new Array(8)
-
-  // Places a piece on a square
-  const place = (piece, square) => (arrangement[square] = piece)
-
-  let squares = [
-    [0, 2, 4, 6], // Dark squares (a, c, e, g)
-    [1, 3, 5, 7], // Bright squares (b, d, f, h)
-  ]
-
-  // Process pieces in groups, emulating the single die method by Ingo Althofer
-  const pieces = [
-    ['B', 'B'], // First bishops
-    ['Q', 'N', 'N'], // Then queen and knights
-    ['R', 'K', 'R'], // Finally king and rooks
-  ]
-
-  // Place each bishop on a random black/white square
-  pieces[0].forEach((piece, squareColor) => {
-    let index = Math.floor(Math.random() * 4)
-
-    // Place the piece on the given square
-    place(piece, squares[squareColor][index])
-
-    // Remove the square from the array of squares, as it is now taken
-    squares[squareColor].splice(index, 1)
-  })
-
-  // Flatten the array of squares for the remaining pieces
-  squares = squares.flat().sort()
-
-  // Place queen and knights on random remaining squares
-  pieces[1].forEach(piece => {
-    let index = Math.floor(Math.random() * squares.length)
-    place(piece, squares[index])
-    squares.splice(index, 1)
-  })
-
-  // Place king and rooks on the remaining squares, the king in the middle
-  pieces[2].forEach(piece => {
-    place(piece, squares[0])
-    squares.splice(0, 1)
-  })
-
-  return arrangement
-}
-
 export {
   toString,
   toArray,
@@ -187,4 +125,4 @@ export {
   toUnicode,
   isValidArrangement,
   isValidID,
-} from './helpers.js'
+} from './helpers.mjs'

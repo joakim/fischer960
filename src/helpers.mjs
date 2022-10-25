@@ -49,7 +49,7 @@ export function toArray(arrangement) {
 export function toLowerCase(arrangement) {
   if (!isValidArrangement(arrangement)) return false
   const type = typeof arrangement
-  const converted = Array.from(arrangement).map(piece => piece.toLowerCase())
+  const converted = Array.from(arrangement).map((piece) => piece.toLowerCase())
   return type === 'string' ? converted.join('') : converted
 }
 
@@ -63,7 +63,7 @@ export function toLowerCase(arrangement) {
 export function toUpperCase(arrangement) {
   if (!isValidArrangement(arrangement)) return false
   const type = typeof arrangement
-  const converted = Array.from(arrangement).map(piece => piece.toUpperCase())
+  const converted = Array.from(arrangement).map((piece) => piece.toUpperCase())
   return type === 'string' ? converted.join('') : converted
 }
 
@@ -93,7 +93,7 @@ export function toUnicode(arrangement, color = 0) {
   if (!isValidArrangement(arrangement)) return false
   const type = typeof arrangement
   const converted = toUpperCase(arrangement).map(
-    piece => UNICODE[piece][color ? 1 : 0]
+    (piece) => UNICODE[piece][color ? 1 : 0]
   )
   return type === 'string' ? converted.join('') : converted
 }
@@ -113,7 +113,7 @@ export function isValidArrangement(arrangement) {
   if (Array.isArray(arrangement))
     arrangement = arrangement.join('').toUpperCase()
 
-  const count = piece =>
+  const count = (piece) =>
     (arrangement.match(new RegExp(piece, 'g')) || []).length
 
   // Check the presence of all pieces
