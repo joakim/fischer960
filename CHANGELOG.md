@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
-## [Unreleased]
+## Unreleased
 
 ## [1.0.0] - 2022-10-25
 
@@ -63,8 +63,8 @@ This _should_ cause a major version bump, but nobody's using this library yet an
 - Improved documentation (2a9b407)
 
 
-[Unreleased]: https://github.com/joakim/fischer960/compare/v0.3.2...HEAD
-[0.3.2]: https://github.com/joakim/fischer960/compare/v0.3.1...v0.3.2
-[0.3.1]: https://github.com/joakim/fischer960/compare/v0.3.0...v0.3.1
-[0.3.0]: https://github.com/joakim/fischer960/compare/v0.2.0...v0.3.0
-[0.2.0]: https://github.com/olivierlacan/keep-a-changelog/releases/tag/v0.2.0
+[1.0.0]: https://github.com/joakim/fischer960/compare/0.3.2...1.0.0
+[0.3.2]: https://github.com/joakim/fischer960/compare/0.3.1...0.3.2
+[0.3.1]: https://github.com/joakim/fischer960/compare/0.3.0...0.3.1
+[0.3.0]: https://github.com/joakim/fischer960/compare/0.2.0...0.3.0
+[0.2.0]: https://github.com/olivierlacan/keep-a-changelog/releases/tag/0.2.0
