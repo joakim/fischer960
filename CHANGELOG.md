@@ -11,7 +11,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2022-10-25
 
 ### Added
-- This (retroactive) CHANGELOG file
+- This CHANGELOG file (retroactive)
+- .editorconfig file
+
+## Changed
+- Test runner from AVA to Jest
+- Renamed .js files .mjs so tests would run
+- Updated dependencies
+- Cleaned up README
+
+## Removed
+- Benchmarks, as they're no longer useful
+- Strong random number generator, as it's overkill adding complexity
+- Cleaned up dependencies
 
 
 ## [0.3.2] - 2019-11-06
